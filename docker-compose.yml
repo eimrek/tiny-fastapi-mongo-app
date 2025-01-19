@@ -1,0 +1,25 @@
+networks:
+  internal-docker-net:
+
+volumes:
+  mongodb-persist-04:
+
+services:
+  webapp:
+    build: .
+    ports:
+      - "8000:5000"
+    networks:
+      - internal-docker-net
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017
+
+  mongodb:
+    restart: always
+    image: mongo:7
+    volumes:
+      - mongodb-persist-04:/data/db:rw
+    networks:
+      - internal-docker-net
