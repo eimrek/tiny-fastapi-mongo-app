@@ -1,5 +1,7 @@
 # Minimal fastapi+mongodb app
 
+(Just for testing.)
+
 You can populate the mongodb with GET requests using the `insert` parameter like
 
 ```
