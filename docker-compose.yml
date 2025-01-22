@@ -7,6 +7,8 @@ volumes:
 services:
   webapp:
     build: .
+    # Alternatively to building, get the image from ghcr:
+    #image: ghcr.io/eimrek/tiny-fastapi-mongo-app:latest
     ports:
       - "8000:5000"
     networks:
