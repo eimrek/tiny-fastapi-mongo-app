@@ -1,7 +1,9 @@
 import os
+import datetime
 
 from fastapi import FastAPI, HTTPException
 from pymongo import MongoClient
+from typing import Optional
 
 mongo_uri = os.getenv("MONGO_URI", "mongodb://localhost:27017")
 mongo_client = MongoClient(mongo_uri)
@@ -12,11 +14,14 @@ app = FastAPI()
 
 
 @app.get("/")
-def read_root(insert=None):
+def read_root(insert: Optional[str] = None):
     try:
         if insert is not None:
             # Insert the data if it's provided in the query parameter
-            collection.insert_one({"data": insert})
+            collection.insert_one({
+                "data": insert,
+                "created_at": datetime.utcnow()
+            })
             return {"message": f"Data {insert} added successfully"}
         else:
             # Otherwise, return all documents from the collection
