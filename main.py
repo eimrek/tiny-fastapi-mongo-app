@@ -1,5 +1,5 @@
 import os
-import datetime
+from datetime import datetime
 
 from fastapi import FastAPI, HTTPException
 from pymongo import MongoClient
@@ -20,7 +20,7 @@ def read_root(insert: Optional[str] = None):
             # Insert the data if it's provided in the query parameter
             collection.insert_one({
                 "data": insert,
-                "created_at": datetime.utcnow()
+                "created_at": datetime.now()
             })
             return {"message": f"Data {insert} added successfully"}
         else:
